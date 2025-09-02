@@ -32,9 +32,9 @@ pub enum ListQueueDetailsError {
 
 pub async fn get_queue_details_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::QueueResource, Error<GetQueueDetailsByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v3/queue/details/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v3/queue/details/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -84,16 +84,16 @@ pub async fn get_queue_details_by_id(configuration: &configuration::Configuratio
 
 pub async fn list_queue_details(configuration: &configuration::Configuration, movie_id: Option<i32>, include_movie: Option<bool>) -> Result<Vec<models::QueueResource>, Error<ListQueueDetailsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_movie_id = movie_id;
-    let p_include_movie = include_movie;
+    let p_query_movie_id = movie_id;
+    let p_query_include_movie = include_movie;
 
     let uri_str = format!("{}/api/v3/queue/details", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_movie_id {
+    if let Some(ref param_value) = p_query_movie_id {
         req_builder = req_builder.query(&[("movieId", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_include_movie {
+    if let Some(ref param_value) = p_query_include_movie {
         req_builder = req_builder.query(&[("includeMovie", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {

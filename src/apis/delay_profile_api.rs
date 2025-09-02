@@ -53,7 +53,7 @@ pub enum UpdateDelayProfileError {
 
 pub async fn create_delay_profile(configuration: &configuration::Configuration, delay_profile_resource: Option<models::DelayProfileResource>) -> Result<models::DelayProfileResource, Error<CreateDelayProfileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_delay_profile_resource = delay_profile_resource;
+    let p_body_delay_profile_resource = delay_profile_resource;
 
     let uri_str = format!("{}/api/v3/delayprofile", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -77,7 +77,7 @@ pub async fn create_delay_profile(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_delay_profile_resource);
+    req_builder = req_builder.json(&p_body_delay_profile_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -106,9 +106,9 @@ pub async fn create_delay_profile(configuration: &configuration::Configuration, 
 
 pub async fn delete_delay_profile(configuration: &configuration::Configuration, id: i32) -> Result<(), Error<DeleteDelayProfileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v3/delayprofile/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v3/delayprofile/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -147,9 +147,9 @@ pub async fn delete_delay_profile(configuration: &configuration::Configuration, 
 
 pub async fn get_delay_profile_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::DelayProfileResource, Error<GetDelayProfileByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v3/delayprofile/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v3/delayprofile/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -249,10 +249,10 @@ pub async fn list_delay_profile(configuration: &configuration::Configuration, ) 
 
 pub async fn update_delay_profile(configuration: &configuration::Configuration, id: &str, delay_profile_resource: Option<models::DelayProfileResource>) -> Result<models::DelayProfileResource, Error<UpdateDelayProfileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delay_profile_resource = delay_profile_resource;
+    let p_path_id = id;
+    let p_body_delay_profile_resource = delay_profile_resource;
 
-    let uri_str = format!("{}/api/v3/delayprofile/{id}", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/api/v3/delayprofile/{id}", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -274,7 +274,7 @@ pub async fn update_delay_profile(configuration: &configuration::Configuration, 
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_delay_profile_resource);
+    req_builder = req_builder.json(&p_body_delay_profile_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
