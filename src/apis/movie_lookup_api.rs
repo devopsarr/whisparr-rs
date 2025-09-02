@@ -46,12 +46,12 @@ pub enum GetMovieLookupTmdbError {
 
 pub async fn get_movie_lookup(configuration: &configuration::Configuration, term: Option<&str>) -> Result<(), Error<GetMovieLookupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_term = term;
+    let p_query_term = term;
 
     let uri_str = format!("{}/api/v3/movie/lookup", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_term {
+    if let Some(ref param_value) = p_query_term {
         req_builder = req_builder.query(&[("term", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -90,9 +90,9 @@ pub async fn get_movie_lookup(configuration: &configuration::Configuration, term
 
 pub async fn get_movie_lookup_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::MovieResource, Error<GetMovieLookupByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v3/movie/lookup/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v3/movie/lookup/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {
@@ -142,12 +142,12 @@ pub async fn get_movie_lookup_by_id(configuration: &configuration::Configuration
 
 pub async fn get_movie_lookup_imdb(configuration: &configuration::Configuration, imdb_id: Option<&str>) -> Result<(), Error<GetMovieLookupImdbError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_imdb_id = imdb_id;
+    let p_query_imdb_id = imdb_id;
 
     let uri_str = format!("{}/api/v3/movie/lookup/imdb", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_imdb_id {
+    if let Some(ref param_value) = p_query_imdb_id {
         req_builder = req_builder.query(&[("imdbId", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -186,12 +186,12 @@ pub async fn get_movie_lookup_imdb(configuration: &configuration::Configuration,
 
 pub async fn get_movie_lookup_tmdb(configuration: &configuration::Configuration, tmdb_id: Option<i32>) -> Result<(), Error<GetMovieLookupTmdbError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_tmdb_id = tmdb_id;
+    let p_query_tmdb_id = tmdb_id;
 
     let uri_str = format!("{}/api/v3/movie/lookup/tmdb", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_tmdb_id {
+    if let Some(ref param_value) = p_query_tmdb_id {
         req_builder = req_builder.query(&[("tmdbId", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {

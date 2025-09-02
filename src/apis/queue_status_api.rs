@@ -82,9 +82,9 @@ pub async fn get_queue_status(configuration: &configuration::Configuration, ) ->
 
 pub async fn get_queue_status_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::QueueStatusResource, Error<GetQueueStatusByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v3/queue/status/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v3/queue/status/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {

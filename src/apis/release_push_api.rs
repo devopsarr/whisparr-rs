@@ -32,7 +32,7 @@ pub enum GetReleasePushByIdError {
 
 pub async fn create_release_push(configuration: &configuration::Configuration, release_resource: Option<models::ReleaseResource>) -> Result<Vec<models::ReleaseResource>, Error<CreateReleasePushError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_release_resource = release_resource;
+    let p_body_release_resource = release_resource;
 
     let uri_str = format!("{}/api/v3/release/push", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -56,7 +56,7 @@ pub async fn create_release_push(configuration: &configuration::Configuration, r
         };
         req_builder = req_builder.header("X-Api-Key", value);
     };
-    req_builder = req_builder.json(&p_release_resource);
+    req_builder = req_builder.json(&p_body_release_resource);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -85,9 +85,9 @@ pub async fn create_release_push(configuration: &configuration::Configuration, r
 
 pub async fn get_release_push_by_id(configuration: &configuration::Configuration, id: i32) -> Result<models::ReleaseResource, Error<GetReleasePushByIdError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
+    let p_path_id = id;
 
-    let uri_str = format!("{}/api/v3/release/push/{id}", configuration.base_path, id=p_id);
+    let uri_str = format!("{}/api/v3/release/push/{id}", configuration.base_path, id=p_path_id);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref apikey) = configuration.api_key {

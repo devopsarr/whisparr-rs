@@ -15,34 +15,34 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 
-/// struct for typed errors of method [`get_feed_v3_calendar_radarr_period_ics`]
+/// struct for typed errors of method [`get_feed_v3_calendar_radarr_ics`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum GetFeedV3CalendarRadarrPeriodIcsError {
+pub enum GetFeedV3CalendarRadarrIcsError {
     UnknownValue(serde_json::Value),
 }
 
 
-pub async fn get_feed_v3_calendar_radarr_period_ics(configuration: &configuration::Configuration, past_days: Option<i32>, future_days: Option<i32>, tags: Option<&str>, unmonitored: Option<bool>) -> Result<(), Error<GetFeedV3CalendarRadarrPeriodIcsError>> {
+pub async fn get_feed_v3_calendar_radarr_ics(configuration: &configuration::Configuration, past_days: Option<i32>, future_days: Option<i32>, tags: Option<&str>, unmonitored: Option<bool>) -> Result<(), Error<GetFeedV3CalendarRadarrIcsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_past_days = past_days;
-    let p_future_days = future_days;
-    let p_tags = tags;
-    let p_unmonitored = unmonitored;
+    let p_query_past_days = past_days;
+    let p_query_future_days = future_days;
+    let p_query_tags = tags;
+    let p_query_unmonitored = unmonitored;
 
     let uri_str = format!("{}/feed/v3/calendar/radarr.ics", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_past_days {
+    if let Some(ref param_value) = p_query_past_days {
         req_builder = req_builder.query(&[("pastDays", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_future_days {
+    if let Some(ref param_value) = p_query_future_days {
         req_builder = req_builder.query(&[("futureDays", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_tags {
+    if let Some(ref param_value) = p_query_tags {
         req_builder = req_builder.query(&[("tags", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_unmonitored {
+    if let Some(ref param_value) = p_query_unmonitored {
         req_builder = req_builder.query(&[("unmonitored", &param_value.to_string())]);
     }
     if let Some(ref apikey) = configuration.api_key {
@@ -74,7 +74,7 @@ pub async fn get_feed_v3_calendar_radarr_period_ics(configuration: &configuratio
         Ok(())
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetFeedV3CalendarRadarrPeriodIcsError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetFeedV3CalendarRadarrIcsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
