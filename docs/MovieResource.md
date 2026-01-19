@@ -41,7 +41,7 @@ Name | Type | Description | Notes
 **folder** | Option<**String**> |  | [optional]
 **certification** | Option<**String**> |  | [optional]
 **genres** | Option<**Vec<String>**> |  | [optional]
-**tags** | Option<**Vec<i32>**> |  | [optional]
+**tags** | Option<**HashSet<i32>**> |  | [optional]
 **added** | Option<**String**> |  | [optional]
 **add_options** | Option<[**models::AddMovieOptions**](AddMovieOptions.md)> |  | [optional]
 **ratings** | Option<[**models::Ratings**](Ratings.md)> |  | [optional]
