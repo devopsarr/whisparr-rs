@@ -36,11 +36,11 @@ pub struct MovieResource {
     #[serde(rename = "overview", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub overview: Option<Option<String>>,
     #[serde(rename = "inCinemas", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub in_cinemas: Option<Option<String>>,
+    pub in_cinemas: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "physicalRelease", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub physical_release: Option<Option<String>>,
+    pub physical_release: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "digitalRelease", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub digital_release: Option<Option<String>>,
+    pub digital_release: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     #[serde(rename = "physicalReleaseNote", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub physical_release_note: Option<Option<String>>,
     #[serde(rename = "images", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
@@ -90,7 +90,7 @@ pub struct MovieResource {
     #[serde(rename = "tags", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Option<Vec<i32>>>,
     #[serde(rename = "added", skip_serializing_if = "Option::is_none")]
-    pub added: Option<String>,
+    pub added: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "addOptions", skip_serializing_if = "Option::is_none")]
     pub add_options: Option<Box<models::AddMovieOptions>>,
     #[serde(rename = "ratings", skip_serializing_if = "Option::is_none")]
