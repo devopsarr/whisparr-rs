@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **relative_path** | Option<**String**> |  | [optional]
 **path** | Option<**String**> |  | [optional]
 **size** | Option<**i64**> |  | [optional]
-**date_added** | Option<**String**> |  | [optional]
+**date_added** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional]
 **scene_name** | Option<**String**> |  | [optional]
 **indexer_flags** | Option<**i32**> |  | [optional]
 **quality** | Option<[**models::QualityModel**](QualityModel.md)> |  | [optional]
